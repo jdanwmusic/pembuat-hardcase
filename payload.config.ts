@@ -10,13 +10,12 @@ import { HardcaseTemplate } from './src/collections/HardcaseTemplate';
 import { Media } from './src/collections/Media';
 
 export default buildConfig({
+  secret: process.env.PAYLOAD_SECRET || 'dev-secret-change-in-production',
   serverURL: 'http://localhost:3000',
   admin: {
     user: 'admin',
-    password: 'admin123',
     meta: {
       titleSuffix: '- Pembuat Hardcase',
-      favicon: '/favicon.ico',
     },
   },
   collections: [Brand, Category, Material, Media, Article, Equipment, HardcaseTemplate],
@@ -26,8 +25,4 @@ export default buildConfig({
       connectionString: process.env.DATABASE_URL || 'postgres://payload:payload@localhost:5433/payload',
     },
   }),
-  rateLimit: {
-    max: 2000,
-    timeWindow: 60,
-  },
 });
