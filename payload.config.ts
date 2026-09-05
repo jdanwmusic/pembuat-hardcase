@@ -1,4 +1,13 @@
-import { Config } from 'payload'
+import { Config } from 'payload';
+import { slateEditor } from '@payloadcms/richtext-slate';
+import { postgresAdapter } from '@payloadcms/db-postgres';
+import { Equipment } from './src/collections/Equipment';
+import { Brand } from './src/collections/Brand';
+import { Category } from './src/collections/Category';
+import { Article } from './src/collections/Article';
+import { Material } from './src/collections/Material';
+import { HardcaseTemplate } from './src/collections/HardcaseTemplate';
+import { Media } from './src/collections/Media';
 
 export default Config({
   serverURL: 'http://localhost:3000',
@@ -9,18 +18,16 @@ export default Config({
       titleSuffix: '- Pembuat Hardcase',
       favicon: '/favicon.ico',
     },
-    // branding
-    components: {
-      // Logo: () => <svg>...</svg>,
-    },
   },
-  collections: [],
+  collections: [Brand, Category, Material, Media, Article, Equipment, HardcaseTemplate],
   editor: slateEditor({}),
+  db: postgresAdapter({
+    pool: {
+      connectionString: process.env.DATABASE_URL || 'postgres://payload:payload@localhost:5433/payload',
+    },
+  }),
   rateLimit: {
     max: 2000,
     timeWindow: 60,
   },
-  db: {
-    connectionString: process.env.DATABASE_URL || 'postgres://payload:payload@localhost:5432/payload',
-  },
-})
+});
