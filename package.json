@@ -1,0 +1,31 @@
+{
+  "name": "pembuat-hardcase",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Pembuat Hardcase - CMS + Equipment Database",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "payload": "payload"
+  },
+  "dependencies": {
+    "next": "15.1.6",
+    "payload": "^3.31.0",
+    "@payloadcms/db-postgres": "^3.31.0",
+    "@payloadcms/richtext-slate": "^3.31.0",
+    "@payloadcms/ui": "^3.31.0",
+    "graphql": "^16.9.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.7.0"
+  },
+  "engines": {
+    "node": ">=20.9.0"
+  }
+}

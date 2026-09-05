@@ -1,0 +1,37 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: ph-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: payload
+      POSTGRES_PASSWORD: payload
+      POSTGRES_DB: payload
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"  # mapped to avoid conflict
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U payload"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+  payload:
+    image: node:20-alpine
+    container_name: ph-payload
+    working_dir: /app
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://payload:payload@db:5432/payload
+      NODE_ENV: development
+      PAYLOAD_SECRET: dev-secret-change-in-production
+    volumes:
+      - ./:/app
+    ports:
+      - "3000:3000"
+    command: sh -c "npm install && npm run dev"
+volumes:
+  pgdata:
