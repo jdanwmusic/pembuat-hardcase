@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Drums",
+    "slug": "drums",
+    "description": "Peralatan drum"
+  },
+  {
+    "name": "Guitar",
+    "slug": "guitar",
+    "description": "Peralatan gitar"
+  },
+  {
+    "name": "Percussion",
+    "slug": "percussion",
+    "description": "Peralatan perkusi"
+  }
+]

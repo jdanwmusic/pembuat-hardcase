@@ -1,8 +1,5 @@
+import { Metadata } from 'next';
+export const metadata: Metadata = { title: 'Brand - Pembuat Hardcase' };
 export default function BrandsPage() {
-  return (
-    <main style={{ padding: '2rem' }}>
-      <h1>Brand</h1>
-      <p>Daftar brand akan tampil di sini.</p>
-    </main>
-  );
+  return <main style={{ padding: '2rem', maxWidth: 960, margin: '0 auto' }}><h1>Brand</h1><p>Data brand dari Payload Admin.</p></main>;
 }

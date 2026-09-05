@@ -1,0 +1,17 @@
+[
+  {
+    "name": "ABS Plastic",
+    "type": "ABS Plastic",
+    "description": "Tahan benturan, ringan"
+  },
+  {
+    "name": "Plywood",
+    "type": "Plywood",
+    "description": "Tradisional, kuat"
+  },
+  {
+    "name": "High-Density Foam",
+    "type": "Foam",
+    "description": "Pelindung dalam case"
+  }
+]

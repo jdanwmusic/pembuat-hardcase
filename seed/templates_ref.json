@@ -1,0 +1,11 @@
+[
+  {
+    "name": "Standard Flight Case",
+    "dimensions": {
+      "length": 1200,
+      "width": 600,
+      "height": 400
+    },
+    "description": "Case standar untuk perjalanan jarak jauh"
+  }
+]

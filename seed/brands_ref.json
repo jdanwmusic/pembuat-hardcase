@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Alesis",
+    "slug": "alesis",
+    "country": "USA"
+  },
+  {
+    "name": "Yamaha",
+    "slug": "yamaha",
+    "country": "Japan"
+  },
+  {
+    "name": "Fender",
+    "slug": "fender",
+    "country": "USA"
+  }
+]
