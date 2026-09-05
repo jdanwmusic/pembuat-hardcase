@@ -1,4 +1,4 @@
-import { buildConfig } from 'payload/config';
+import { buildConfig } from 'payload';
 import { slateEditor } from '@payloadcms/richtext-slate';
 import { postgresAdapter } from '@payloadcms/db-postgres';
 import { Equipment } from './src/collections/Equipment';

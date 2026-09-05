@@ -9,29 +9,32 @@ services:
       POSTGRES_PASSWORD: payload
       POSTGRES_DB: payload
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - pgdata_hardcase:/var/lib/postgresql/data
     ports:
-      - "5433:5432"  # mapped to avoid conflict
+      - "5433:5432"
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U payload"]
       interval: 5s
       timeout: 3s
       retries: 10
-  payload:
+  server:
     image: node:20-alpine
-    container_name: ph-payload
+    container_name: ph-server
     working_dir: /app
     depends_on:
       db:
         condition: service_healthy
     environment:
       DATABASE_URL: postgres://payload:payload@db:5432/payload
-      NODE_ENV: development
       PAYLOAD_SECRET: dev-secret-change-in-production
+      NODE_ENV: development
     volumes:
-      - ./:/app
+      - ./server:/app
+      - ./src/collections:/app/src/collections
+      - ./payload.config.ts:/app/payload.config.ts
     ports:
-      - "3000:3000"
-    command: sh -c "npm install && npm run dev"
+      - "3001:3001"
+    command: sh -c "npm install express payload ts-node && npm run dev"
+
 volumes:
-  pgdata:
+  pgdata_hardcase:
