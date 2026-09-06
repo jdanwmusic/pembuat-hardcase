@@ -1,11 +1,6 @@
 packages:
-  - "."
+  - '.'
 
 allowBuilds:
-  esbuild: set this to true or false
-  sharp: set this to true or false
-
-# Allow build scripts needed by Next.js / Payload / sharp
-onlyBuiltDependencies:
-  - esbuild
-  - sharp
+  esbuild: true
+  sharp: true
