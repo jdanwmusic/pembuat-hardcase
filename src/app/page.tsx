@@ -1,20 +1,17 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { findEquipment } from '@/lib/db';
 
 export const metadata: Metadata = {
   title: 'Pembuat Hardcase — Database Peralatan Musik',
   description: 'Database peralatan musik terlengkap untuk menemukan hardcase yang tepat.',
-  alternates: { canonical: 'http://localhost:3000/' },
+  alternates: { canonical: 'https://www.pembuathardcase.com/' },
   openGraph: { title: 'Pembuat Hardcase', description: 'Database Peralatan Musik — temukan hardcase yang tepat', locale: 'id_ID', type: 'website' },
 };
 
+export const dynamic = 'force-dynamic';
 export default async function HomePage() {
-  let equipment: any[] = [];
-  try {
-    const res = await fetch('http://localhost:3000/api/db?table=equipment', { cache: 'no-store' });
-    const data = await res.json();
-    equipment = data.rows || [];
-  } catch { /* placeholder if DB not available */ }
+  const equipment = await findEquipment();
 
   return (
     <main style={{ padding: '2rem', maxWidth: 960, margin: '0 auto', fontFamily: 'system-ui, sans-serif' }}>
@@ -30,7 +27,7 @@ export default async function HomePage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1rem' }}>
           <Link href="/equipment" style={{ padding: '1rem', border: '1px solid #ddd', borderRadius: 8, textDecoration: 'none', color: '#0a0a0c' }}>
             <h3 style={{ margin: 0 }}>Equipment</h3>
-            <p style={{ margin: '0.25rem 0 0', color: '#777', fontSize: '0.9rem' }}>Data dinamis dari PostgreSQL</p>
+            <p style={{ margin: '0.25rem 0 0', color: '#777', fontSize: '0.9rem' }}>Data dinamis dari D1 (Payload CMS)</p>
           </Link>
           <Link href="/brands" style={{ padding: '1rem', border: '1px solid #ddd', borderRadius: 8, textDecoration: 'none', color: '#0a0a0c' }}>
             <h3 style={{ margin: 0 }}>Brand</h3>
@@ -49,11 +46,9 @@ export default async function HomePage() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '1rem' }}>
             {equipment.map((e: any) => (
               <Link key={e.id} href={`/equipment/${e.id}`} style={{ padding: '1rem', border: '1px solid #ddd', borderRadius: 8, textDecoration: 'none', background: '#fff' }}>
-                <h3 style={{ margin: 0 }}>
-                  {e.modelname || e.brand}
-                </h3>
+                <h3 style={{ margin: 0 }}>{e.modelName || e.brand}</h3>
                 <p style={{ margin: '0.25rem 0 0', color: '#777', fontSize: '0.9rem' }}>
-                  Brand: {e.brand || '—'} · Kategori: {e.category || '—'} · Berat: {e.weight_kg || '—'} kg
+                  Brand: {e.brand?.name || '—'} · Kategori: {e.category?.name || '—'} · Berat: {e.weightKg || '—'} kg
                 </p>
               </Link>
             ))}
@@ -64,11 +59,11 @@ export default async function HomePage() {
       <section style={{ background: '#f8f7f5', padding: '1.5rem', borderRadius: 8 }}>
         <h2 style={{ fontSize: '1.2rem', color: '#0a0a0c' }}>Tentang Proyek</h2>
         <p style={{ lineHeight: 1.7, color: '#333' }}>
-          Pembuat Hardcase dibangun dengan fondasi <strong>Next.js + Payload CMS + PostgreSQL</strong>.
-          Semua data tersimpan secara terstruktur — dari brand, kategori, dimensi, hingga rekomendasi ukuran case.
+          Pembuat Hardcase dibangun dengan fondasi <strong>Next.js + Payload CMS + D1 (Cloudflare SQLite)</strong>.
+          Semua data tersimpan secara terstruktur dan di-host di Cloudflare Workers.
         </p>
         <div style={{ marginTop: '0.75rem', fontSize: '0.85rem', color: '#777' }}>
-          Version 0.1.0 — Foundation Phase | Node 20.19.0 | Payload 3.88.0 | Postgres 16
+          Version Cloudflare Migration | Payload 3.88.0 | Next.js 15.1.6 (deprecated — upgrade follow-up)
         </div>
       </section>
     </main>

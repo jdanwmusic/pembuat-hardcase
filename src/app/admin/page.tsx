@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 
+export const dynamic = 'force-dynamic';
 export default function AdminDashboard() {
   const [table, setTable] = useState('equipment');
   const [rows, setRows] = useState<any[]>([]);
@@ -32,7 +33,7 @@ export default function AdminDashboard() {
     <main style={{ padding: '2rem', maxWidth: 960, margin: '0 auto', fontFamily: 'system-ui' }}>
       <h1>Payload Admin — Dashboard</h1>
       <div style={{ background: '#0a0a0c', color: '#fff', padding: '1rem', borderRadius: 8, marginBottom: '1rem' }}>
-        <strong>Login: admin / admin123</strong> — DB PostgreSQL: localhost:5433 — DB API: /admin/api
+        <strong>Login: admin / admin123</strong> — DB: D1 (Cloudflare SQLite) — DB API: /admin/api
       </div>
       <div style={{ display: 'flex', gap: 8, marginBottom: '1rem', flexWrap: 'wrap' }}>
         <select value={table} onChange={e => setTable(e.target.value)} style={{ padding: '0.5rem' }}>

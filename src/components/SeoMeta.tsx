@@ -5,7 +5,8 @@ export function generateSeo(
   description?: string,
   path?: string
 ): Metadata {
-  const url = `http://localhost:3000${path || ''}`;
+  const base = process.env.NEXT_PUBLIC_APP_URL || 'https://www.pembuathardcase.com';
+  const url = `${base}${path || ''}`;
   return {
     title: `${title} - Pembuat Hardcase`,
     description: description || 'Pembuat Hardcase - Database Peralatan Musik',

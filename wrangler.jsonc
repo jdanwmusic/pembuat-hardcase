@@ -10,5 +10,18 @@
   },
   "vars": {
     "NEXT_PUBLIC_APP_URL": "https://www.pembuathardcase.com"
-  }
+  },
+  "d1_databases": [
+    {
+      "binding": "D1",
+      "database_name": "pembuat-hardcase",
+      "database_id": "pembuat-hardcase-d1-id"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "R2",
+      "bucket_name": "pembuat-hardcase-media"
+    }
+  ]
 }

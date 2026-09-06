@@ -1,21 +1,13 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { findArticles, findArticleBySlug } from '@/lib/db';
 
+export const metadata: Metadata = { title: 'Artikel - Pembuat Hardcase', alternates: { canonical: 'https://www.pembuathardcase.com/articles' } };
 
-export const metadata: Metadata = { title: 'Artikel - Pembuat Hardcase', alternates: { canonical: 'http://localhost:3000/articles' } };
-
-async function getArticles() {
-  try {
-    const client = new (require('pg').Client)({ connectionString: process.env.DATABASE_URL || 'postgres://payload:payload@localhost:5433/payload' });
-    await client.connect();
-    const res = await client.query('SELECT id, title, slug, excerpt, category, created_at FROM articles ORDER BY created_at DESC');
-    await client.end();
-    return res.rows;
-  } catch { return []; }
-}
-
+export const dynamic = 'force-dynamic';
 export default async function ArticlesPage() {
-  const articles = await getArticles();
+  const articles = await findArticles();
+
   return (
     <main style={{ padding: '2rem', maxWidth: 960, margin: '0 auto' }}>
       <h1 style={{ marginBottom: '0.5rem' }}>Artikel</h1>
@@ -31,7 +23,7 @@ export default async function ArticlesPage() {
         {articles.map((a: any) => (
           <Link key={a.id} href={`/artikel/${a.id}`} style={{ padding: '1rem', border: '1px solid #ddd', borderRadius: 8, textDecoration: 'none', background: '#fff', color: '#0a0a0c' }}>
             <h3 style={{ margin: 0, color: '#0a0a0c' }}>{a.title}</h3>
-            <p style={{ margin: '0.25rem 0 0', color: '#777', fontSize: '0.9rem' }}>{a.excerpt || 'Tidak ada excerpt'} · {a.category || '—'}</p>
+            <p style={{ margin: '0.25rem 0 0', color: '#777', fontSize: '0.9rem' }}>{a.excerpt || 'Tidak ada excerpt'} · {a.category?.name || '—'}</p>
           </Link>
         ))}
       </div>
