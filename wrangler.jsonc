@@ -1,0 +1,14 @@
+{
+  "$schema": "https://raw.githubusercontent.com/cloudflare/workers-sdk/main/packages/wrangler/src/config-schema.json",
+  "name": "pembuat-hardcase",
+  "compatibility_date": "2026-09-06",
+  "compatibility_flags": ["nodejs_compat"],
+  "pages_build_output_dir": ".open-next/cloudflare",
+  "build": {
+    "command": "pnpm run build && pnpm opennextjs-cloudflare build",
+    "cwd": "."
+  },
+  "vars": {
+    "NEXT_PUBLIC_APP_URL": "https://www.pembuathardcase.com"
+  }
+}
